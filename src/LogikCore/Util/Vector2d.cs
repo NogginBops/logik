@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Text;
 
-namespace LogikUI.Util
+namespace LogikCore
 {
-    internal struct Vector2d : IEquatable<Vector2d>
+    public struct Vector2d : IEquatable<Vector2d>
     {
         public static readonly Vector2d Zero = new Vector2d(0, 0);
 

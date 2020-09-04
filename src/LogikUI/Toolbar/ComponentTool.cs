@@ -1,12 +1,12 @@
 ﻿using Cairo;
 using Gtk;
+using LogikCore;
 using LogikUI.Circuit;
 using LogikUI.Component;
-using LogikUI.Simulation.Gates;
-using LogikUI.Util;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Orientation = LogikCore.Orientation;
 
 namespace LogikUI.Toolbar
 {
@@ -17,7 +17,7 @@ namespace LogikUI.Toolbar
         public bool DraggingComponent = false;
         public Vector2i StartPosition;
         public Vector2i VisualPosition;
-        public Circuit.Orientation CompOrientation;
+        public Orientation CompOrientation;
 
         // FIXME: Technically we can get the name of the component from the ComponentType
         // So we shouldn't need to have the name argument here because it should be able to be derived.
@@ -54,22 +54,22 @@ namespace LogikUI.Toolbar
                 // No modifiers are pressed
                 if (eventKey.Key == Gdk.Key.Up)
                 {
-                    CompOrientation = Circuit.Orientation.North;
+                    CompOrientation = LogikCore.Orientation.North;
                     consumed = true;
                 }
                 if (eventKey.Key == Gdk.Key.Down)
                 {
-                    CompOrientation = Circuit.Orientation.South;
+                    CompOrientation = LogikCore.Orientation.South;
                     consumed = true;
                 }
                 if (eventKey.Key == Gdk.Key.Left)
                 {
-                    CompOrientation = Circuit.Orientation.West;
+                    CompOrientation = LogikCore.Orientation.West;
                     consumed = true;
                 }
                 if (eventKey.Key == Gdk.Key.Right)
                 {
-                    CompOrientation = Circuit.Orientation.East;
+                    CompOrientation = LogikCore.Orientation.East;
                     consumed = true;
                 }
             }

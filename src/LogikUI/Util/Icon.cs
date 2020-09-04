@@ -1,7 +1,7 @@
 using Gdk;
 using Gtk;
+using LogikCore;
 using LogikUI.Properties;
-using LogikUI.Simulation.Gates;
 using System.ComponentModel;
 using System.Reflection;
 

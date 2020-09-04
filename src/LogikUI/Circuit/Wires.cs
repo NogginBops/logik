@@ -1,8 +1,7 @@
-﻿using LogikUI.Interop;
+﻿using LogikCore;
+using LogikUI.Interop;
 using LogikUI.Simulation;
-using LogikUI.Simulation.Gates;
 using LogikUI.Transaction;
-using LogikUI.Util;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,7 +13,7 @@ using System.Reflection;
 
 namespace LogikUI.Circuit
 {
-    class Wires
+    public class Wires
     {
         // FIXME: We might not want to do it like this....
         public Gates Gates;
@@ -41,19 +40,14 @@ namespace LogikUI.Circuit
         {
             if (value.Width == 1)
             {
-                switch ((ValueState)value.Values)
+                return ((ValueState)value.Values) switch
                 {
-                    case ValueState.Floating:
-                        return new Cairo.Color(0.2, 0.2, 0.9);
-                    case ValueState.Zero:
-                        return new Cairo.Color(0.1, 0.4, 0.1);
-                    case ValueState.One:
-                        return new Cairo.Color(0.2, 0.9, 0.2);
-                    case ValueState.Error:
-                        return new Cairo.Color(0.9, 0.2, 0.2);
-                    default:
-                        throw new InvalidEnumArgumentException(nameof(value), (int)value.Values, typeof(ValueState));
-                }
+                    ValueState.Floating => new Cairo.Color(0.2, 0.2, 0.9),
+                    ValueState.Zero =>     new Cairo.Color(0.1, 0.4, 0.1),
+                    ValueState.One =>      new Cairo.Color(0.2, 0.9, 0.2),
+                    ValueState.Error =>    new Cairo.Color(0.9, 0.2, 0.2),
+                    _ => throw new InvalidEnumArgumentException(nameof(value), (int)value.Values, typeof(ValueState)),
+                };
             }
             else return new Cairo.Color(0.3, 0.3, 0.3);
         }
@@ -80,7 +74,7 @@ namespace LogikUI.Circuit
                 Value value = Value.Floating;
                 if (bundle.ID != 0)
                 {
-                    var state = LogLogic.SubnetState(Program.Backend, bundle.ID);
+                    var state = LogikUI.Simulation.SubnetState(bundle.ID);
                     value = state switch
                     {
                         ValueState.Floating => Value.Floating,

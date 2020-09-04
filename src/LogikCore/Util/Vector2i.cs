@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Text;
 
-namespace LogikUI.Util
+namespace LogikCore
 {
-    internal struct Vector2i : IEquatable<Vector2i>
+    public struct Vector2i : IEquatable<Vector2i>
     {
         public static readonly Vector2i Zero = new Vector2i(0, 0);
+        public static readonly Vector2i One  = new Vector2i(1, 1);
 
         public int X;
         public int Y;

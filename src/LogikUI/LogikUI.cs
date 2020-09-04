@@ -10,14 +10,16 @@ using LogikUI.Util;
 using LogikUI.Interop;
 using LogikUI.Simulation;
 using LogikUI.Toolbar;
-using LogikUI.Simulation.Gates;
 using LogikUI.File;
+using LogikCore;
 
 namespace LogikUI
 {
-    class Program
+    public class LogikUI
     {
-        public static Data Backend;
+        public static readonly bool LogSimulationCommunication = true;
+
+        public static ISimulation Simulation;
         
         static Gtk.Toolbar CreateToolbar(CircuitEditor editor) {
             Gtk.Toolbar toolbar = new Gtk.Toolbar();
@@ -27,16 +29,16 @@ namespace LogikUI
             // FIXME: Make this be selected with a callback or something
             //editor.CurrentTool = selectTool;
 
-            ComponentTool constantTool = new ComponentTool(ComponentType.Constant, "Constant", editor, toolbar);
+            //ComponentTool constantTool = new ComponentTool(ComponentType.Constant, "Constant", editor, toolbar);
 
-            ComponentTool bufferTool = new ComponentTool(ComponentType.Buffer, "Buffer gate", editor, toolbar);
-            ComponentTool notTool = new ComponentTool(ComponentType.Not, "Not gate", editor, toolbar);
+            //ComponentTool bufferTool = new ComponentTool(ComponentType.Buffer, "Buffer gate", editor, toolbar);
+            //ComponentTool notTool = new ComponentTool(ComponentType.Not, "Not gate", editor, toolbar);
 
-            ComponentTool andTool = new ComponentTool(ComponentType.And, "And gate", editor, toolbar);
+            //ComponentTool andTool = new ComponentTool(ComponentType.And, "And gate", editor, toolbar);
 
-            ComponentTool orTool = new ComponentTool(ComponentType.Or, "Or gate", editor, toolbar);
+            //ComponentTool orTool = new ComponentTool(ComponentType.Or, "Or gate", editor, toolbar);
 
-            ComponentTool xorTool = new ComponentTool(ComponentType.Xor, "Xor gate", editor, toolbar);
+            //ComponentTool xorTool = new ComponentTool(ComponentType.Xor, "Xor gate", editor, toolbar);
 
             SeparatorToolItem sep = new SeparatorToolItem();
 
@@ -44,12 +46,12 @@ namespace LogikUI
             toolbar.Insert(selectTool, index++);
             toolbar.Insert(wireTool, index++);
             toolbar.Insert(sep, index++);
-            toolbar.Insert(constantTool, index++);
-            toolbar.Insert(bufferTool, index++);
-            toolbar.Insert(notTool, index++);
-            toolbar.Insert(andTool, index++);
-            toolbar.Insert(orTool, index++);
-            toolbar.Insert(xorTool, index++);
+            //toolbar.Insert(constantTool, index++);
+            //toolbar.Insert(bufferTool, index++);
+            //toolbar.Insert(notTool, index++);
+            //toolbar.Insert(andTool, index++);
+            //toolbar.Insert(orTool, index++);
+            //toolbar.Insert(xorTool, index++);
 
             return toolbar;
         }
@@ -172,15 +174,13 @@ namespace LogikUI
             return bar;
         }
 
-        // VERY IMPORTANT!!!!!!!!!!!!
-        // After the call to Application.Init() NullReferenceExceptions
-        // will no longer be thrown. This is an active bug in GtkSharp
-        // and can be tracked here https://github.com/GtkSharp/GtkSharp/issues/155
-        // Hopefully this can be fixed sooner rather than later...
-        static void Main()
+        // This gets called from Logik::Program.Main
+        public static void Main()
         {
             Console.ResetColor();
-            Backend = LogLogic.Init();
+            Simulation = new ExternSimulation();
+            if (LogSimulationCommunication) Simulation = new LoggingSimulation(Simulation);
+            Simulation.Init();
             
             CultureInfo.CurrentCulture = CultureInfo.InvariantCulture;
 
@@ -260,7 +260,7 @@ namespace LogikUI
 
         private static void Wnd_Destroyed(object? sender, EventArgs e)
         {
-            LogLogic.Exit(Backend);
+            LogikUI.Simulation.Exit();
             Application.Quit();
         }
     }

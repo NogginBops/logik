@@ -6,9 +6,9 @@ using System.Xml.Schema;
 using System.Xml.XPath;
 using System.IO;
 using Gtk;
-using LogikUI.Util;
 using LogikUI.Circuit;
-using LogikUI.Simulation.Gates;
+using LogikCore;
+using Orientation = LogikCore.Orientation;
 
 namespace LogikUI.File
 {
@@ -17,7 +17,7 @@ namespace LogikUI.File
     /// </summary>
     static class FileManager
     {
-        private static Dictionary<string, ComponentType> types = new Dictionary<string, ComponentType>()
+        private static readonly Dictionary<string, ComponentType> types = new Dictionary<string, ComponentType>()
          {
              { "constant", ComponentType.Constant },
              { "buffer", ComponentType.Buffer },
@@ -27,15 +27,15 @@ namespace LogikUI.File
              { "xor", ComponentType.Xor },
         };
 
-        private static Dictionary<string, Circuit.Orientation> orientations = new Dictionary<string, Circuit.Orientation>()
+        private static readonly Dictionary<string, Orientation> orientations = new Dictionary<string, Orientation>()
         {
-             { "North", Circuit.Orientation.North },
-             { "South", Circuit.Orientation.South },
-             { "West", Circuit.Orientation.West },
-             { "East", Circuit.Orientation.East },
+             { "North", Orientation.North },
+             { "South", Orientation.South },
+             { "West", Orientation.West },
+             { "East", Orientation.East },
         };
 
-        private static string filename;
+        private static string? filename;
 
         /// <summary>
         /// True, if FileManager.Open or FileManager.Save hasn't been called.
@@ -63,7 +63,7 @@ namespace LogikUI.File
         /// <exception cref="ArgumentException">Unable to access the file.</exception>
         public static void Load(string filename)
         {
-            Vector2i getPos(XmlNode pos)
+            static Vector2i getPos(XmlNode pos)
             {
                 int x = int.Parse(pos.Attributes["x"].InnerText);
                 int y = int.Parse(pos.Attributes["y"].InnerText);
@@ -151,7 +151,7 @@ namespace LogikUI.File
 
                         ComponentType type = types[component.SelectSingleNode("type").InnerText.ToLower()];
                         Vector2i location = getPos(component.SelectSingleNode("location"));
-                        Circuit.Orientation orientation = orientations[component.SelectSingleNode("orientation").InnerText];
+                        Orientation orientation = orientations[component.SelectSingleNode("orientation").InnerText];
 
                         Components.Add(InstanceData.Create(type, location, orientation));
 
@@ -237,9 +237,11 @@ namespace LogikUI.File
             if (IsNew) throw new InvalidOperationException("The file is new.");
 
             //FIXME: delete file before save
-            
-            Save(filename);
 
+            if (filename != null)
+            {
+                Save(filename);
+            }
         }
 
         // <summary>

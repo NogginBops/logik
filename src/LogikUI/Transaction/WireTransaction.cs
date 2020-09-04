@@ -5,7 +5,7 @@ using System.Text;
 
 namespace LogikUI.Transaction
 {
-    class WireTransaction : Transaction
+    public class WireTransaction : Transaction
     {
         // FIXME: We want to be able to include a human readable summary 
         // of what this action was.

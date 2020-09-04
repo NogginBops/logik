@@ -1,4 +1,4 @@
-﻿using LogikUI.Util;
+﻿using LogikCore;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -7,7 +7,7 @@ using System.Text;
 
 namespace LogikUI.Circuit
 {
-    struct TextLabel
+    public struct TextLabel
     {
         public Vector2d Position;
         public string Text;
@@ -21,7 +21,7 @@ namespace LogikUI.Circuit
         }
     }
 
-    class TextLabels
+    public class TextLabels
     {
         public TextLabel[] Labels;
 

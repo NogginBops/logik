@@ -1,4 +1,5 @@
 ﻿using Cairo;
+using LogikCore;
 using LogikUI.Circuit;
 using LogikUI.Interop;
 using LogikUI.Util;
@@ -7,7 +8,7 @@ using System.Collections.Generic;
 using System.Numerics;
 using System.Text;
 
-namespace LogikUI.Simulation.Gates
+namespace Logik.Gates
 {
     class AndGate : IComponent
     {
@@ -28,7 +29,8 @@ namespace LogikUI.Simulation.Gates
 
         public bool Contains(InstanceData data, Vector2d point)
         {
-            Rect rect = new Rect(data.Position * CircuitEditor.DotSpacing, new Vector2i() * CircuitEditor.DotSpacing);
+            // FIXME CircuitEditor.DotSpacing
+            Rect rect = new Rect(data.Position * CircuitEditor.DotSpacing, Vector2i.One * CircuitEditor.DotSpacing);
             rect = rect.Rotate(data.Position * CircuitEditor.DotSpacing, data.Orientation);
             return rect.Contains(point);
         }
@@ -58,7 +60,7 @@ namespace LogikUI.Simulation.Gates
 
             // FIXME: We probably shouldn't hardcode the color
             cr.SetSourceRGB(0.1, 0.1, 0.1);
-            cr.LineWidth = Wires.WireWidth;
+            cr.LineWidth = 0; /* Wires.WireWidth; */ // FIXME Wires.WireWidth
             cr.Stroke();
 
             //foreach (var gate in instances)

@@ -1,11 +1,8 @@
-﻿using LogikUI.Circuit;
-using LogikUI.Util;
-using System;
-using LogikUI.Interop;
+﻿using System;
 
-namespace LogikUI.Simulation.Gates
+namespace LogikCore
 {
-    struct InstanceData : IEquatable<InstanceData>
+    public struct InstanceData : IEquatable<InstanceData>
     {
         public int ID;
         public ComponentType Type;

@@ -1,17 +1,18 @@
-﻿using Atk;
-using Cairo;
+﻿using Cairo;
+using LogikCore;
 using LogikUI.Circuit;
 using LogikUI.Util;
 using System;
-using System.Numerics;
+using System.Collections.Generic;
+using System.Text;
 
-namespace LogikUI.Simulation.Gates
+namespace Logik.Gates
 {
-    class XorGate : IComponent
+    class Constant : IComponent
     {
-        public string Name => "Xor Gate";
-        public ComponentType Type => ComponentType.Xor;
-        public int NumberOfPorts => 3;
+        public string Name => "Constant";
+        public ComponentType Type => ComponentType.Constant;
+        public int NumberOfPorts => 1;
 
         public Rect GetBounds(InstanceData data)
         {
@@ -25,9 +26,7 @@ namespace LogikUI.Simulation.Gates
 
         public void GetPorts(Span<Vector2i> ports)
         {
-            ports[0] = new Vector2i(-3, 1);
-            ports[1] = new Vector2i(-3, -1);
-            ports[2] = new Vector2i(0, 0);
+            ports[0] = new Vector2i(0, 0);
         }
 
         public void Draw(Context cr, InstanceData data)
@@ -36,18 +35,11 @@ namespace LogikUI.Simulation.Gates
 
             //foreach (var gate in instances)
             {
-                cr.MoveTo(-27.5, -15);
-                cr.RelLineTo(7.5, 0);
-                cr.RelCurveTo(10, 0, 15, 7.5, 20, 15);
-                cr.RelCurveTo(-5, 7.5, -10, 15, -20, 15);
-                cr.RelLineTo(-7.5, 0);
-                cr.RelCurveTo(0, 0, 5, -7.5, 5, -15);
-                cr.RelCurveTo(0, -7.5, -5, -15, -5, -15);
+                cr.Rectangle(-30, -15, 30, 30);
                 cr.ClosePath();
-                cr.RelMoveTo(-5, 30);
-                cr.RelCurveTo(0, 0, 5, -7.5, 5, -15);
-                cr.RelCurveTo(0, -7.5, -5, -15, -5, -15);
             }
+
+            // FIXME: We probably shouldn't hardcode the color
             cr.SetSourceRGB(0.1, 0.1, 0.1);
             cr.LineWidth = Wires.WireWidth;
             cr.Stroke();

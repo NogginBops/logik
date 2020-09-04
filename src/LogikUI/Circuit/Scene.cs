@@ -1,16 +1,15 @@
 ﻿using Cairo;
+using LogikCore;
 using LogikUI.Interop;
 using LogikUI.Simulation;
-using LogikUI.Simulation.Gates;
 using LogikUI.Transaction;
-using LogikUI.Util;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace LogikUI.Circuit
 {
-    class Scene
+    public class Scene
     {
         public Wires Wires;
         public Gates Gates;
@@ -34,7 +33,7 @@ namespace LogikUI.Circuit
             foreach (var net in Subnets)
             {
                 net.ID = SubnetIDCounter++;
-                LogLogic.AddSubnet(Program.Backend, net.ID);
+                LogikUI.Simulation.AddSubnet(net.ID);
                 Console.WriteLine($"Added new subnet: {net}");
             }
         }
@@ -271,7 +270,7 @@ namespace LogikUI.Circuit
                 if (removedFromSubnet?.Wires.Count <= 0)
                 {
                     Console.WriteLine($"Removed subnet: {removedFromSubnet}");
-                    LogLogic.RemoveSubnet(Program.Backend, removedFromSubnet.ID);
+                    LogikUI.Simulation.RemoveSubnet(removedFromSubnet.ID);
                     removedFromSubnet.ID = 0;
 
                     Subnets.Remove(removedFromSubnet);
@@ -368,7 +367,7 @@ namespace LogikUI.Circuit
             {
                 // Here we should figure out a new subnet id
                 addedNet.ID = SubnetIDCounter++;
-                LogLogic.AddSubnet(Program.Backend, addedNet.ID);
+                LogikUI.Simulation.AddSubnet(addedNet.ID);
                 Console.WriteLine($"Added new subnet: {addedNet}");
             }
 
@@ -470,7 +469,7 @@ namespace LogikUI.Circuit
                         // Create a new subnet for this island
 
                         var newSubnet = new Subnet(SubnetIDCounter++);
-                        LogLogic.AddSubnet(Program.Backend, newSubnet.ID);
+                        LogikUI.Simulation.AddSubnet(newSubnet.ID);
 
                         newSubnet.Wires = island;
 

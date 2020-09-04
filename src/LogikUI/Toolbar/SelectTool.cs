@@ -1,10 +1,9 @@
 ﻿using Cairo;
 using Gtk;
+using LogikCore;
 using LogikUI.Circuit;
 using LogikUI.Interop;
-using LogikUI.Simulation.Gates;
 using LogikUI.Transaction;
-using LogikUI.Util;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -99,7 +98,7 @@ namespace LogikUI.Toolbar
                 if (r.Contains(editor.FromGridToWorld(SelectionStart)))
                 {
                     Poking = true;
-                    LogLogic.PressComponent(Program.Backend, SelectedGates[0].ID);
+                    LogikUI.Simulation.PressComponent(SelectedGates[0].ID);
                 }
             }
         }
@@ -132,7 +131,7 @@ namespace LogikUI.Toolbar
             if (Poking)
             {
                 Poking = false;
-                LogLogic.ReleaseComponent(Program.Backend, SelectedGates[0].ID);
+                LogikUI.Simulation.ReleaseComponent(SelectedGates[0].ID);
             }
 
             // FIXME: Do the selecting

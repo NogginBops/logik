@@ -1,11 +1,12 @@
 ﻿using Cairo;
+using LogikCore;
 using LogikUI.Circuit;
 using LogikUI.Util;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace LogikUI.Simulation.Gates
+namespace Logik.Gates
 {
     struct DFlipFlop : IComponent
     {

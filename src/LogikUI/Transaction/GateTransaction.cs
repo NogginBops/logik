@@ -1,13 +1,13 @@
 ﻿using Gdk;
+using LogikCore;
 using LogikUI.Circuit;
-using LogikUI.Simulation.Gates;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace LogikUI.Transaction
 {
-    class GateTransaction : Transaction
+    public class GateTransaction : Transaction
     {
         // FIXME: We might want to store something else...?
         public bool RemoveComponent;

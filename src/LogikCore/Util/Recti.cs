@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Text;
 
-namespace LogikUI.Util
+namespace LogikCore
 {
-    struct Recti : IEquatable<Recti>
+    public struct Recti : IEquatable<Recti>
     {
         public Vector2i Position;
         public Vector2i Size;

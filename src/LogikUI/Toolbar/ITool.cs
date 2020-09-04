@@ -1,14 +1,14 @@
 ﻿using Gdk;
 using Gtk;
+using LogikCore;
 using LogikUI.Circuit;
-using LogikUI.Util;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace LogikUI.Toolbar
 {
-    interface ITool
+    public interface ITool
     {
         // FIXME: Remove CircuitEditor in the params! Find something better
         // We want to 
@@ -47,8 +47,7 @@ namespace LogikUI.Toolbar
                 for (int i = 0; i < this.Toolbar.NItems; i++) {
                     ToolItem item = this.Toolbar.GetNthItem(i);
                     // Make sure that it is a toggle and not a separator
-                    if (item is ToggleToolButton && this != item) {
-                        ToggleToolButton toggle = (ToggleToolButton) item;
+                    if (item is ToggleToolButton toggle && this != item) {
                         if (toggle.Active) {
                             toggle.Active = false;
                         }

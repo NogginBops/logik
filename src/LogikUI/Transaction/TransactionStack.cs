@@ -5,7 +5,7 @@ using System.Text;
 
 namespace LogikUI.Transaction
 {
-    class TransactionStack
+    public class TransactionStack
     {
         public Transaction[] Transactions;
         public int Max;

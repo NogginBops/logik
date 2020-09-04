@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace LogikUI.Simulation
+namespace LogikCore
 {
     public class WidthMismatchException : Exception
     {

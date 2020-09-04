@@ -5,9 +5,9 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 
-namespace LogikUI.Util
+namespace LogikCore
 {
-    struct UnionFindNode<T>
+    public struct UnionFindNode<T>
     {
         public int Index;
         public int Parent;
@@ -25,7 +25,7 @@ namespace LogikUI.Util
         }
     }
 
-    class UnionFind<T> where T : notnull
+    public class UnionFind<T> where T : notnull
     {
         public UnionFindNode<T>[] Nodes;
         public Dictionary<T, int> ValueToIndex = new Dictionary<T, int>();

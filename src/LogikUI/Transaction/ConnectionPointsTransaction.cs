@@ -1,4 +1,5 @@
-﻿using LogikUI.Circuit;
+﻿using LogikCore;
+using LogikUI.Circuit;
 using LogikUI.Util;
 using System;
 using System.Collections.Generic;
@@ -7,7 +8,7 @@ using System.Text;
 
 namespace LogikUI.Transaction
 {
-    class ConnectionPointsTransaction : Transaction
+    public class ConnectionPointsTransaction : Transaction
     {
         // NOTE: We might want to bring this inline with
         // WireTransaction and have two lists of removed and

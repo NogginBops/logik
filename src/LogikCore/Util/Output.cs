@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace LogikUI.Util
+namespace LogikCore
 {
     public static class Output
     {

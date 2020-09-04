@@ -1,15 +1,15 @@
-﻿using LogikUI.Util;
+﻿using LogikCore;
 using System;
 
 namespace LogikUI.Circuit
 {
-    enum Direction
+    public enum Direction
     {
         Vertical,
         Horizontal,
     }
 
-    struct Wire : IEquatable<Wire>
+    public struct Wire : IEquatable<Wire>
     {
         public Vector2i Pos;
         public int Length;

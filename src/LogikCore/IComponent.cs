@@ -1,7 +1,4 @@
 ﻿using Cairo;
-using LogikUI.Circuit;
-using LogikUI.Interop;
-using LogikUI.Util;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -10,9 +7,9 @@ using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Text;
 
-namespace LogikUI.Simulation.Gates
+namespace LogikCore
 {
-    interface IComponent
+    public interface IComponent
     {
         public string Name { get; }
         public ComponentType Type { get; }
@@ -23,7 +20,8 @@ namespace LogikUI.Simulation.Gates
         public bool Contains(InstanceData data, Vector2d point)
         {
             Rect rect = GetBounds(data);
-            rect = rect.Rotate(data.Position * CircuitEditor.DotSpacing, data.Orientation);
+            // FIXME CircuitEditor.DotSpacing
+            rect = rect.Rotate(data.Position /* * CircuitEditor.DotSpacing*/, data.Orientation);
             return rect.Contains(point);
         }
 
@@ -35,7 +33,8 @@ namespace LogikUI.Simulation.Gates
         static ComponentTransform ApplyComponentTransform(Context cr, InstanceData data)
         {
             var transform = new ComponentTransform(cr);
-            cr.Translate(data.Position.X * CircuitEditor.DotSpacing, data.Position.Y * CircuitEditor.DotSpacing);
+            // FIXME CircuitEditor.DotSpacing
+            cr.Translate(data.Position.X/* * CircuitEditor.DotSpacing*/, data.Position.Y/* * CircuitEditor.DotSpacing*/);
             cr.Rotate(data.Orientation.ToAngle());
             return transform;
         }
@@ -61,11 +60,14 @@ namespace LogikUI.Simulation.Gates
         {
             // If this component has an ID get the port state, otherwise floating
             var state = data.ID != 0 ?
-                LogLogic.PortState(Program.Backend, data.ID, index) :
+                // FIXME: ISimulation
+                ((ISimulation)null!).PortState(data.ID, index) :
                 ValueState.Floating;
-            var color = Wires.GetValueColor(new Value(state));
+            // FIXME: Wires.GetValueColor
+            var color = default(Cairo.Color); // Wires.GetValueColor(new Value(state));
 
-            var port = ports[index] * CircuitEditor.DotSpacing;
+            // FIXME CircuitEditor.DotSpacing
+            var port = ports[index] /* * CircuitEditor.DotSpacing*/;
 
             cr.Arc(port.X, port.Y, 2, 0, Math.PI * 2);
             cr.ClosePath();

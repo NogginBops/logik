@@ -1,5 +1,4 @@
-﻿using LogikUI.Simulation.Gates;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
@@ -7,156 +6,89 @@ using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Text;
 using LogikUI.Simulation;
+using LogikCore;
 
 namespace LogikUI.Interop
 {
-    static class LogLogic
+    class ExternSimulation : ISimulation
     {
-        public static void Print(string str)
-        {
-            var c = Console.ForegroundColor;
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine($"[Logic] {str}");
-            Console.ForegroundColor = c;
-        }
+        public RustData data;
 
-        public static Data Init()
-        {
-            var data = Logic.Init();
-            Print($"Init() -> {data}");
-            return data;
-        }
+        public void Init() => data = RustLogic.Init();
 
-        public static void Exit(Data data)
-        {
-            Print($"Exit() -> {data}");
-            Logic.Exit(data);
-        }
+        public void Exit() => RustLogic.Exit(data);
 
-        public static bool AddSubnet(Data data, int subnetId)
-        {
-            var ret = Logic.AddSubnet(data, subnetId);
-            Print($"AddSubnet(Subnet: {subnetId}) -> {ret}");
-            return ret;
-        }
+        public bool AddSubnet(int subnetId) => RustLogic.AddSubnet(data, subnetId);
 
-        public static bool RemoveSubnet(Data data, int subnetId)
-        {
-            var ret = Logic.RemoveSubnet(data, subnetId);
-            Print($"RemoveSubnet(Subnet: {subnetId}) -> {ret}");
-            return ret;
-        }
+        public bool RemoveSubnet(int subnetId) => RustLogic.RemoveSubnet(data, subnetId);
 
-        public static int AddComponent(Data data, ComponentType componentType)
-        {
-            var ret = Logic.AddComponent(data, componentType);
-            Print($"AddComponent(Type: {componentType}) -> {ret}");
-            return ret;
-        }
+        public int AddComponent(ComponentType componentType) => RustLogic.AddComponent(data, componentType);
 
-        public static bool RemoveComponent(Data data, int componentId)
-        {
-            var ret = Logic.RemoveComponent(data, componentId);
-            Print($"RemoveComponent(Component: {componentId}) -> {ret}");
-            return ret;
-        }
+        public bool RemoveComponent(int componentId) => RustLogic.RemoveComponent(data, componentId);
 
-        public static bool Link(Data data, int componentId, int port, int subnetId)
-        {
-            var ret = Logic.Link(data, componentId, port, subnetId);
-            Print($"Link(Component: {componentId}, Port: {port}, Subnet: {subnetId}) -> {ret}");
-            return ret;
-        }
+        public bool Link(int componentId, int port, int subnetId) => RustLogic.Link(data, componentId, port, subnetId);
 
-        public static bool Unlink(Data data, int componentId, int port, int subnetId)
-        {
-            var ret = Logic.Unlink(data, componentId, port, subnetId);
-            Print($"Unlink(Component: {componentId}, Port: {port}, Subnet: {subnetId}) -> {ret}");
-            return ret;
-        }
+        public bool Unlink(int componentId, int port, int subnetId) => RustLogic.Unlink(data, componentId, port, subnetId);
 
-        public static void Tick(Data data)
-        {
-            Print($"Tick()");
-            Logic.Tick(data);
-        }
+        public void Tick() => RustLogic.Tick(data);
 
-        public static ValueState SubnetState(Data data, int subnet)
-        {
-            var ret = Logic.SubnetState(data, subnet);
-            //Print($"SubnetState(Subnet: {subnet}) -> {ret}");
-            return ret;
-        }
+        public ValueState SubnetState(int subnet) => RustLogic.SubnetState(data, subnet);
 
-        public static ValueState PortState(Data data, int component, int port)
-        {
-            var ret = Logic.PortState(data, component, port);
-            //Print($"SubnetState(Component: {component}, Port: {port}) -> {ret}");
-            return ret;
-        }
+        public ValueState PortState(int component, int port) => RustLogic.PortState(data, component, port);
 
-        public static ValueState PressComponent(Data data, int componentId)
-        {
-            var ret = Logic.PressComponent(data, componentId);
-            Print($"PressComponent(Component: {componentId}) -> {ret}");
-            return ret;
-        }
+        public ValueState PressComponent(int componentId) => RustLogic.PressComponent(data, componentId);
 
-        public static ValueState ReleaseComponent(Data data, int componentId)
-        {
-            var ret = Logic.ReleaseComponent(data, componentId);
-            Print($"ReleaseComponent(Component: {componentId}) -> {ret}");
-            return ret;
-        }
+        public ValueState ReleaseComponent(int componentId) => RustLogic.ReleaseComponent(data, componentId);
     }
 
-    static class Logic
+    static class RustLogic
     {
         const string Lib = "logik_simulation";
 
         const CallingConvention CallingConv = CallingConvention.Cdecl;
 
         [DllImport(Lib, EntryPoint = "init", ExactSpelling = true, CallingConvention = CallingConv)]
-        public static extern Data Init();
+        public static extern RustData Init();
 
         [DllImport(Lib, EntryPoint = "exit", ExactSpelling = true, CallingConvention = CallingConv)]
-        public static extern void Exit(Data data);
+        public static extern void Exit(RustData data);
         
         [DllImport(Lib, EntryPoint = "add_subnet", ExactSpelling = true, CallingConvention = CallingConv)]
-        public static extern bool AddSubnet(Data data, int subnetId);
+        public static extern bool AddSubnet(RustData data, int subnetId);
         
         [DllImport(Lib, EntryPoint = "remove_subnet", ExactSpelling = true, CallingConvention = CallingConv)]
-        public static extern bool RemoveSubnet(Data data, int subnetId);
+        public static extern bool RemoveSubnet(RustData data, int subnetId);
         
         [DllImport(Lib, EntryPoint = "add_component", ExactSpelling = true, CallingConvention = CallingConv)]
-        public static extern int AddComponent(Data data, ComponentType componentType);
+        public static extern int AddComponent(RustData data, ComponentType componentType);
         
         [DllImport(Lib, EntryPoint = "remove_component", ExactSpelling = true, CallingConvention = CallingConv)]
-        public static extern bool RemoveComponent(Data data, int componentId);
+        public static extern bool RemoveComponent(RustData data, int componentId);
         
         [DllImport(Lib, EntryPoint = "link", ExactSpelling = true, CallingConvention = CallingConv)]
-        public static extern bool Link(Data data, int componentId, int port, int subnetId);
+        public static extern bool Link(RustData data, int componentId, int port, int subnetId);
         
         [DllImport(Lib, EntryPoint = "unlink", ExactSpelling = true, CallingConvention = CallingConv)]
-        public static extern bool Unlink(Data data, int componentId, int port, int subnetId);
+        public static extern bool Unlink(RustData data, int componentId, int port, int subnetId);
         
         [DllImport(Lib, EntryPoint = "tick", ExactSpelling = true, CallingConvention = CallingConv)]
-        public static extern void Tick(Data data);
+        public static extern void Tick(RustData data);
 
         [DllImport(Lib, EntryPoint = "subnet_state", ExactSpelling = true, CallingConvention = CallingConv)]
-        public static extern ValueState SubnetState(Data data, int subnet);
+        public static extern ValueState SubnetState(RustData data, int subnet);
 
         [DllImport(Lib, EntryPoint = "port_state", ExactSpelling = true, CallingConvention = CallingConv)]
-        public static extern ValueState PortState(Data data, int component, int port);
+        public static extern ValueState PortState(RustData data, int component, int port);
 
         [DllImport(Lib, EntryPoint = "press_component", ExactSpelling = true, CallingConvention = CallingConv)]
-        public static extern ValueState PressComponent(Data data, int componentId);
+        public static extern ValueState PressComponent(RustData data, int componentId);
 
         [DllImport(Lib, EntryPoint = "release_component", ExactSpelling = true, CallingConvention = CallingConv)]
-        public static extern ValueState ReleaseComponent(Data data, int componentId);
+        public static extern ValueState ReleaseComponent(RustData data, int componentId);
     }
 
-    public struct Data
+    [StructLayout(LayoutKind.Sequential)]
+    public struct RustData
     {
         public IntPtr Handle;
     }

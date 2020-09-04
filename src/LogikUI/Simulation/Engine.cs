@@ -1,4 +1,5 @@
-﻿using LogikUI.Util;
+﻿using LogikCore;
+using LogikUI.Util;
 using System;
 using System.Collections.Generic;
 using System.Text;

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Text;
 
-namespace LogikUI.Util
+namespace LogikCore
 {
-    internal struct Rect : IEquatable<Rect>
+    public struct Rect : IEquatable<Rect>
     {
         public Vector2d Position;
         public Vector2d Size;

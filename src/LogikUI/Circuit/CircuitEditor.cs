@@ -9,6 +9,7 @@ using LogikUI.Transaction;
 using System.Linq;
 using LogikUI.Toolbar;
 using GLib;
+using LogikCore;
 
 namespace LogikUI.Circuit
 {
@@ -27,7 +28,7 @@ namespace LogikUI.Circuit
         }
     }
 
-    class CircuitEditor
+    public class CircuitEditor
     {
         public DrawingArea DrawingArea;
         public Vector2d Offset;

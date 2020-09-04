@@ -1,4 +1,5 @@
 ﻿using Cairo;
+using LogikCore;
 using LogikUI.Circuit;
 using LogikUI.Transaction;
 using LogikUI.Util;

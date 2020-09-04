@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace LogikUI.Util
+namespace LogikCore
 {
     // From https://visualstudiomagazine.com/Articles/2012/11/01/Priority-Queues-with-C.aspx?Page=2
     // TODO: Maybe implement this ourselves

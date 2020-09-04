@@ -1,35 +1,24 @@
 ﻿using Gtk;
-using LogikUI.Simulation.Gates;
 using LogikUI.Transaction;
-using LogikUI.Util;
-using Pango;
 using System;
 using System.Collections.Generic;
 using System.Numerics;
 using System.Text;
-using LogikUI.Interop;
+using LogikCore;
 
 namespace LogikUI.Circuit
 {
-    // FIXME: Move to it's own file
-    enum Orientation : int
-    {
-        East,
-        South,
-        West,
-        North,
-    }
-
-    class Gates
+    public class Gates
     {
         public Dictionary<ComponentType, IComponent> Components = new Dictionary<ComponentType, IComponent>()
         {
-            { ComponentType.Constant, new Constant() },
-            { ComponentType.Buffer, new BufferGate() },
-            { ComponentType.Not, new NotGate() },
-            { ComponentType.And, new AndGate() },
-            { ComponentType.Or, new OrGate() },
-            { ComponentType.Xor, new XorGate() },
+            // FIXME: We will have to get these from somewhere else...
+            //{ ComponentType.Constant, new Constant() },
+            //{ ComponentType.Buffer, new BufferGate() },
+            //{ ComponentType.Not, new NotGate() },
+            //{ ComponentType.And, new AndGate() },
+            //{ ComponentType.Or, new OrGate() },
+            //{ ComponentType.Xor, new XorGate() },
         };
 
         public List<InstanceData> Instances = new List<InstanceData>();
@@ -114,7 +103,7 @@ namespace LogikUI.Circuit
         {
             if (transaction.RemoveComponent == false)
             {
-                transaction.Gate.ID = LogLogic.AddComponent(Program.Backend, transaction.Gate.Type);
+                transaction.Gate.ID = LogikUI.Simulation.AddComponent(transaction.Gate.Type);
 
                 Instances.Add(transaction.Gate);
             }
@@ -123,7 +112,7 @@ namespace LogikUI.Circuit
                 if (transaction.Gate.ID == 0)
                     throw new InvalidOperationException("Cannot delete a gate that doesn't have a valid id! (Maybe you forgot to apply the transaction before?)");
 
-                if (LogLogic.RemoveComponent(Program.Backend, transaction.Gate.ID) == false)
+                if (LogikUI.Simulation.RemoveComponent(transaction.Gate.ID) == false)
                 {
                     Console.WriteLine($"RemoveComponent(Type: {transaction.Gate.ID}) -> false");
                     Console.WriteLine($"Warn: Rust said we couldn't remove this gate id: {transaction.Gate.ID}. ({transaction.Gate})");
@@ -150,7 +139,7 @@ namespace LogikUI.Circuit
                 if (transaction.Gate.ID == 0)
                     throw new InvalidOperationException("Cannot revert a transaction where the gates doesn't have a valid id! (Maybe you forgot to apply the transaction before?)");
 
-                if (LogLogic.RemoveComponent(Program.Backend, transaction.Gate.ID) == false)
+                if (LogikUI.Simulation.RemoveComponent(transaction.Gate.ID) == false)
                 {
                     Console.WriteLine($"Warn: Rust said we couldn't remove this gate id: {transaction.Gate.ID}. ({transaction.Gate})");
                 }
@@ -163,7 +152,7 @@ namespace LogikUI.Circuit
             else
             {
                 // Here we are reverting a delete, i.e. adding it back again
-                transaction.Gate.ID = LogLogic.AddComponent(Program.Backend, transaction.Gate.Type);
+                transaction.Gate.ID = LogikUI.Simulation.AddComponent(transaction.Gate.Type);
                 Instances.Add(transaction.Gate);
             }
             

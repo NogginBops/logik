@@ -1,6 +1,6 @@
-﻿namespace LogikUI.Simulation.Gates
+﻿namespace LogikCore
 {
-    enum ComponentType : int
+    public enum ComponentType : int
     {
         // If the component type is custom it's a user defined component
         // and requires additional data to operate on...
