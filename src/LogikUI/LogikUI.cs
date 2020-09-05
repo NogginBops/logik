@@ -12,6 +12,7 @@ using LogikUI.Simulation;
 using LogikUI.Toolbar;
 using LogikUI.File;
 using LogikCore;
+using System.Linq;
 
 namespace LogikUI
 {
@@ -29,16 +30,16 @@ namespace LogikUI
             // FIXME: Make this be selected with a callback or something
             //editor.CurrentTool = selectTool;
 
-            //ComponentTool constantTool = new ComponentTool(ComponentType.Constant, "Constant", editor, toolbar);
+            ComponentTool constantTool = new ComponentTool(ComponentType.Constant, "Constant", editor, toolbar);
 
-            //ComponentTool bufferTool = new ComponentTool(ComponentType.Buffer, "Buffer gate", editor, toolbar);
-            //ComponentTool notTool = new ComponentTool(ComponentType.Not, "Not gate", editor, toolbar);
+            ComponentTool bufferTool = new ComponentTool(ComponentType.Buffer, "Buffer gate", editor, toolbar);
+            ComponentTool notTool = new ComponentTool(ComponentType.Not, "Not gate", editor, toolbar);
 
-            //ComponentTool andTool = new ComponentTool(ComponentType.And, "And gate", editor, toolbar);
+            ComponentTool andTool = new ComponentTool(ComponentType.And, "And gate", editor, toolbar);
 
-            //ComponentTool orTool = new ComponentTool(ComponentType.Or, "Or gate", editor, toolbar);
+            ComponentTool orTool = new ComponentTool(ComponentType.Or, "Or gate", editor, toolbar);
 
-            //ComponentTool xorTool = new ComponentTool(ComponentType.Xor, "Xor gate", editor, toolbar);
+            ComponentTool xorTool = new ComponentTool(ComponentType.Xor, "Xor gate", editor, toolbar);
 
             SeparatorToolItem sep = new SeparatorToolItem();
 
@@ -46,12 +47,12 @@ namespace LogikUI
             toolbar.Insert(selectTool, index++);
             toolbar.Insert(wireTool, index++);
             toolbar.Insert(sep, index++);
-            //toolbar.Insert(constantTool, index++);
-            //toolbar.Insert(bufferTool, index++);
-            //toolbar.Insert(notTool, index++);
-            //toolbar.Insert(andTool, index++);
-            //toolbar.Insert(orTool, index++);
-            //toolbar.Insert(xorTool, index++);
+            toolbar.Insert(constantTool, index++);
+            toolbar.Insert(bufferTool, index++);
+            toolbar.Insert(notTool, index++);
+            toolbar.Insert(andTool, index++);
+            toolbar.Insert(orTool, index++);
+            toolbar.Insert(xorTool, index++);
 
             return toolbar;
         }
@@ -175,7 +176,7 @@ namespace LogikUI
         }
 
         // This gets called from Logik::Program.Main
-        public static void Main()
+        public static void InitUI(IComponentGraphics[] comps)
         {
             Console.ResetColor();
             Simulation = new ExternSimulation();
@@ -200,6 +201,7 @@ namespace LogikUI
 
             Notebook nbook = new Notebook();
             var circuitEditor = new CircuitEditor();
+            circuitEditor.Scene.Gates.Components = comps.ToDictionary(kvp => kvp.Type);
             nbook.AppendPage(circuitEditor.DrawingArea, new Label("Circuit editor"));
             nbook.AppendPage(new Label("TODO: Package editor"), new Label("Package editor"));
 

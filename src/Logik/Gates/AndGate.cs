@@ -7,10 +7,12 @@ using System;
 using System.Collections.Generic;
 using System.Numerics;
 using System.Text;
+using LogikSimulation;
+using LogikUI;
 
 namespace Logik.Gates
 {
-    class AndGate : IComponent
+    class AndGate : IComponentGraphics, ILogicComponent
     {
         // Indices for the ports
         public string Name => "And Gate";
@@ -29,10 +31,16 @@ namespace Logik.Gates
 
         public bool Contains(InstanceData data, Vector2d point)
         {
-            // FIXME CircuitEditor.DotSpacing
             Rect rect = new Rect(data.Position * CircuitEditor.DotSpacing, Vector2i.One * CircuitEditor.DotSpacing);
             rect = rect.Rotate(data.Position * CircuitEditor.DotSpacing, data.Orientation);
             return rect.Contains(point);
+        }
+
+        public void GetPortLocations(Span<Vector2i> ports)
+        {
+            ports[0] = new Vector2i(-3, 1);
+            ports[1] = new Vector2i(-3, -1);
+            ports[2] = new Vector2i(0, 0);
         }
 
         public void GetPorts(Span<Vector2i> ports)
@@ -46,7 +54,7 @@ namespace Logik.Gates
         // call so we can do more efficient cairo rendering.
         public void Draw(Context cr, InstanceData data)
         {
-            using var transform = IComponent.ApplyComponentTransform(cr, data);
+            using var transform = IComponentGraphics.ApplyComponentTransform(cr, data);
 
             //foreach (var gate in instances)
             {
@@ -60,7 +68,7 @@ namespace Logik.Gates
 
             // FIXME: We probably shouldn't hardcode the color
             cr.SetSourceRGB(0.1, 0.1, 0.1);
-            cr.LineWidth = 0; /* Wires.WireWidth; */ // FIXME Wires.WireWidth
+            cr.LineWidth = Wires.WireWidth;
             cr.Stroke();
 
             //foreach (var gate in instances)
@@ -70,9 +78,14 @@ namespace Logik.Gates
 
                 for (int i = 0; i < NumberOfPorts; i++)
                 {
-                    IComponent.DrawRoundPort(cr, data, points, i);
+                    IComponentGraphics.DrawRoundPort(cr, data, points, i);
                 }
             }
+        }
+
+        public void Evaluate(Span<Value> State)
+        {
+            throw new NotImplementedException();
         }
     }
 }

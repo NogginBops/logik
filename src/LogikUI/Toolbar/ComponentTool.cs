@@ -12,7 +12,7 @@ namespace LogikUI.Toolbar
 {
     class ComponentTool : BasicTool
     {
-        public IComponent BaseComponent;
+        public IComponentGraphics BaseComponent;
         public bool PlacingComponent = false;
         public bool DraggingComponent = false;
         public Vector2i StartPosition;
@@ -26,7 +26,7 @@ namespace LogikUI.Toolbar
         {
             if (circuitEditor.Scene.Gates.Components.TryGetValue(type, out var component) == false)
             {
-                throw new InvalidOperationException($"There is no ICompoennt for the component type '{type}'");
+                throw new InvalidOperationException($"There is no IComponentGraphics for the component type '{type}'");
             }
             BaseComponent = component!;
         }

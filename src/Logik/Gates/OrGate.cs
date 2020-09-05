@@ -1,5 +1,6 @@
 ﻿using Cairo;
 using LogikCore;
+using LogikUI;
 using LogikUI.Circuit;
 using LogikUI.Util;
 using System;
@@ -7,7 +8,7 @@ using System.Numerics;
 
 namespace Logik.Gates
 {
-    class OrGate : IComponent
+    class OrGate : IComponentGraphics
     {
         public string Name => "Or Gate";
         public ComponentType Type => ComponentType.Or;
@@ -32,7 +33,7 @@ namespace Logik.Gates
 
         public void Draw(Context cr, InstanceData data)
         {
-            using var transform = IComponent.ApplyComponentTransform(cr, data);
+            using var transform = IComponentGraphics.ApplyComponentTransform(cr, data);
 
             //foreach (var gate in instances)
             {
@@ -56,7 +57,7 @@ namespace Logik.Gates
 
                 for (int i = 0; i < NumberOfPorts; i++)
                 {
-                    IComponent.DrawRoundPort(cr, data, points, i);
+                    IComponentGraphics.DrawRoundPort(cr, data, points, i);
                 }
             }
         }

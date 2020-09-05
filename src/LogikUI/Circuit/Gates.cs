@@ -10,7 +10,7 @@ namespace LogikUI.Circuit
 {
     public class Gates
     {
-        public Dictionary<ComponentType, IComponent> Components = new Dictionary<ComponentType, IComponent>()
+        public Dictionary<ComponentType, IComponentGraphics> Components = new Dictionary<ComponentType, IComponentGraphics>()
         {
             // FIXME: We will have to get these from somewhere else...
             //{ ComponentType.Constant, new Constant() },
@@ -40,7 +40,7 @@ namespace LogikUI.Circuit
             }
 
             comp!.GetPorts(ports);
-            IComponent.TransformPorts(data, ports);
+            IComponentGraphics.TransformPorts(data, ports);
         }
 
         public Rect GetBounds(InstanceData data)

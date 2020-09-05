@@ -1,5 +1,6 @@
 ﻿using Cairo;
 using LogikCore;
+using LogikUI;
 using LogikUI.Circuit;
 using LogikUI.Util;
 using System;
@@ -8,7 +9,7 @@ using System.Text;
 
 namespace Logik.Gates
 {
-    struct DFlipFlop : IComponent
+    struct DFlipFlop : IComponentGraphics
     {
         public string Name => "D FLip-Flop";
         public ComponentType Type => ComponentType.DFlipFlop;

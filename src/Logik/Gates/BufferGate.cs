@@ -1,5 +1,6 @@
 ﻿using Cairo;
 using LogikCore;
+using LogikUI;
 using LogikUI.Circuit;
 using LogikUI.Util;
 using System;
@@ -9,7 +10,7 @@ using System.Text;
 
 namespace Logik.Gates
 {
-    class BufferGate : IComponent
+    class BufferGate : IComponentGraphics
     {
         // Indices for the ports
         public string Name => "Buffer Gate";
@@ -21,8 +22,8 @@ namespace Logik.Gates
             var size = new Vector2d(3, 3);
             var p = data.Position - size;
             return new Rect(
-                p/* * CircuitEditor.DotSpacing*/,
-                size/* * CircuitEditor.DotSpacing*/
+                p * CircuitEditor.DotSpacing,
+                size * CircuitEditor.DotSpacing
                 );
         }
 
@@ -36,7 +37,7 @@ namespace Logik.Gates
         // call so we can do more efficient cairo rendering.
         public void Draw(Context cr, InstanceData data)
         {
-            using var transform = IComponent.ApplyComponentTransform(cr, data);
+            using var transform = IComponentGraphics.ApplyComponentTransform(cr, data);
 
             //foreach (var gate in instances)
             {
@@ -48,7 +49,7 @@ namespace Logik.Gates
 
             // FIXME: We probably shouldn't hardcode the color
             cr.SetSourceRGB(0.1, 0.1, 0.1);
-            cr.LineWidth = default; // FIXME Wires.WireWidth;
+            cr.LineWidth = Wires.WireWidth;
             cr.Stroke();
 
             //foreach (var gate in instances)
@@ -58,7 +59,7 @@ namespace Logik.Gates
 
                 for (int i = 0; i < NumberOfPorts; i++)
                 {
-                    IComponent.DrawRoundPort(cr, data, points, i);
+                    IComponentGraphics.DrawRoundPort(cr, data, points, i);
                 }
             }
         }

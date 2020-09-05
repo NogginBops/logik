@@ -1,6 +1,9 @@
-﻿using LogikCore;
+﻿using Logik.Gates;
+using LogikCore;
+using LogikUI;
 using LogikUI.Simulation;
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 
 namespace Logik
@@ -9,7 +12,17 @@ namespace Logik
     {
         static void Main()
         {
-            LogikUI.LogikUI.Main();
+            IComponentGraphics[] comps =
+            {
+                new Constant(),
+                new BufferGate(),
+                new NotGate(),
+                new AndGate(),
+                new OrGate(),
+                new XorGate(),
+            };
+
+            LogikUI.LogikUI.InitUI(comps);
         }
     }
 }

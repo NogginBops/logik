@@ -5,10 +5,11 @@ using LogikUI.Util;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using LogikUI;
 
 namespace Logik.Gates
 {
-    class Constant : IComponent
+    class Constant : IComponentGraphics
     {
         public string Name => "Constant";
         public ComponentType Type => ComponentType.Constant;
@@ -31,7 +32,7 @@ namespace Logik.Gates
 
         public void Draw(Context cr, InstanceData data)
         {
-            using var transform = IComponent.ApplyComponentTransform(cr, data);
+            using var transform = IComponentGraphics.ApplyComponentTransform(cr, data);
 
             //foreach (var gate in instances)
             {
@@ -51,7 +52,7 @@ namespace Logik.Gates
 
                 for (int i = 0; i < NumberOfPorts; i++)
                 {
-                    IComponent.DrawRoundPort(cr, data, points, i);
+                    IComponentGraphics.DrawRoundPort(cr, data, points, i);
                 }
             }
         }
