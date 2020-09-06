@@ -4,7 +4,7 @@ namespace LogikCore
 {
     public struct InstanceData : IEquatable<InstanceData>
     {
-        public int ID;
+        public ComponentID ID;
         public ComponentType Type;
         public Vector2i Position;
         public Orientation Orientation;

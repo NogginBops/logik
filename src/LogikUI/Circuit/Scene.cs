@@ -32,7 +32,7 @@ namespace LogikUI.Circuit
             Subnets = CreateSubnetsFromWires(Wires.WiresList);
             foreach (var net in Subnets)
             {
-                net.ID = SubnetIDCounter++;
+                net.ID = (SubnetID)SubnetIDCounter++;
                 LogikUI.Simulation.AddSubnet(net.ID);
                 Console.WriteLine($"Added new subnet: {net}");
             }
@@ -271,7 +271,7 @@ namespace LogikUI.Circuit
                 {
                     Console.WriteLine($"Removed subnet: {removedFromSubnet}");
                     LogikUI.Simulation.RemoveSubnet(removedFromSubnet.ID);
-                    removedFromSubnet.ID = 0;
+                    removedFromSubnet.ID = SubnetID.Invalid;
 
                     Subnets.Remove(removedFromSubnet);
                 }
@@ -366,7 +366,7 @@ namespace LogikUI.Circuit
             foreach (var addedNet in addedSubnets)
             {
                 // Here we should figure out a new subnet id
-                addedNet.ID = SubnetIDCounter++;
+                addedNet.ID = (SubnetID)SubnetIDCounter++;
                 LogikUI.Simulation.AddSubnet(addedNet.ID);
                 Console.WriteLine($"Added new subnet: {addedNet}");
             }

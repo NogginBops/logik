@@ -18,26 +18,26 @@ namespace LogikSimulation
 
         public void Exit() => Engine.Exit();
 
-        public bool AddSubnet(int subnetId) => Engine.AddSubnet(subnetId);
+        public bool AddSubnet(SubnetID subnet) => Engine.AddSubnet(subnet);
 
-        public bool RemoveSubnet(int subnetId) => Engine.RemoveSubnet(subnetId);
+        public bool RemoveSubnet(SubnetID subnet) => Engine.RemoveSubnet(subnet);
 
-        public int AddComponent(ComponentType componentType) => Engine.AddComponent(componentType);
+        public ComponentID AddComponent(ComponentType componentType) => Engine.AddComponent(componentType);
 
-        public bool RemoveComponent(int componentId) => Engine.RemoveComponent(componentId);
+        public bool RemoveComponent(ComponentID component) => Engine.RemoveComponent(component);
 
-        public bool Link(int componentId, int port, int subnetId) => throw new NotImplementedException();
+        public bool Link(ComponentID component, int port, SubnetID subnet) => Engine.Link(component, port, subnet);
 
-        public bool Unlink(int componentId, int port, int subnetId) => throw new NotImplementedException();
+        public bool Unlink(ComponentID component, int port, SubnetID subnet) => Engine.Unlink(component, port, subnet);
 
         public void Tick() => throw new NotImplementedException();
 
-        public ValueState SubnetState(int subnet) => Engine.SubnetState(subnet);
+        public ValueState SubnetState(SubnetID subnet) => Engine.SubnetState(subnet);
 
-        public ValueState PortState(int component, int port) => Engine.PortState(component, port);
+        public ValueState PortState(ComponentID component, int port) => Engine.PortState(component, port);
 
-        public ValueState PressComponent(int componentId) => throw new NotImplementedException();
+        public ValueState PressComponent(ComponentID componentId) => throw new NotImplementedException();
 
-        public ValueState ReleaseComponent(int componentId) => throw new NotImplementedException();
+        public ValueState ReleaseComponent(ComponentID componentId) => throw new NotImplementedException();
     }
 }

@@ -35,45 +35,45 @@ namespace LogikUI.Interop
             Print($"Exit()");
         }
 
-        public bool AddSubnet(int subnetId)
+        public bool AddSubnet(SubnetID subnet)
         {
-            var ret = Simulation.AddSubnet(subnetId);
-            Print($"AddSubnet(Subnet: {subnetId}) -> {ret}");
+            var ret = Simulation.AddSubnet(subnet);
+            Print($"AddSubnet(Subnet: {subnet}) -> {ret}");
             return ret;
         }
 
-        public bool RemoveSubnet(int subnetId)
+        public bool RemoveSubnet(SubnetID subnet)
         {
-            var ret = Simulation.RemoveSubnet(subnetId);
-            Print($"RemoveSubnet(Subnet: {subnetId}) -> {ret}");
+            var ret = Simulation.RemoveSubnet(subnet);
+            Print($"RemoveSubnet(Subnet: {subnet}) -> {ret}");
             return ret;
         }
 
-        public int AddComponent(ComponentType componentType)
+        public ComponentID AddComponent(ComponentType componentType)
         {
             var ret = Simulation.AddComponent(componentType);
             Print($"AddComponent(Type: {componentType}) -> {ret}");
             return ret;
         }
 
-        public bool RemoveComponent(int componentId)
+        public bool RemoveComponent(ComponentID component)
         {
-            var ret = Simulation.RemoveComponent(componentId);
-            Print($"RemoveComponent(Component: {componentId}) -> {ret}");
+            var ret = Simulation.RemoveComponent(component);
+            Print($"RemoveComponent(Component: {component}) -> {ret}");
             return ret;
         }
 
-        public bool Link(int componentId, int port, int subnetId)
+        public bool Link(ComponentID component, int port, SubnetID subnet)
         {
-            var ret = Simulation.Link(componentId, port, subnetId);
-            Print($"Link(Component: {componentId}, Port: {port}, Subnet: {subnetId}) -> {ret}");
+            var ret = Simulation.Link(component, port, subnet);
+            Print($"Link(Component: {component}, Port: {port}, Subnet: {subnet}) -> {ret}");
             return ret;
         }
 
-        public bool Unlink(int componentId, int port, int subnetId)
+        public bool Unlink(ComponentID component, int port, SubnetID subnet)
         {
-            var ret = Simulation.Unlink(componentId, port, subnetId);
-            Print($"Unlink(Component: {componentId}, Port: {port}, Subnet: {subnetId}) -> {ret}");
+            var ret = Simulation.Unlink(component, port, subnet);
+            Print($"Unlink(Component: {component}, Port: {port}, Subnet: {subnet}) -> {ret}");
             return ret;
         }
 
@@ -83,31 +83,31 @@ namespace LogikUI.Interop
             Print($"Tick()");
         }
 
-        public ValueState SubnetState(int subnet)
+        public ValueState SubnetState(SubnetID subnet)
         {
             var ret = Simulation.SubnetState(subnet);
             //Print($"SubnetState(Subnet: {subnet}) -> {ret}");
             return ret;
         }
 
-        public ValueState PortState(int component, int port)
+        public ValueState PortState(ComponentID component, int port)
         {
             var ret = Simulation.PortState(component, port);
             //Print($"SubnetState(Component: {component}, Port: {port}) -> {ret}");
             return ret;
         }
 
-        public ValueState PressComponent(int componentId)
+        public ValueState PressComponent(ComponentID component)
         {
-            var ret = Simulation.PressComponent(componentId);
-            Print($"PressComponent(Component: {componentId}) -> {ret}");
+            var ret = Simulation.PressComponent(component);
+            Print($"PressComponent(Component: {component}) -> {ret}");
             return ret;
         }
 
-        public ValueState ReleaseComponent(int componentId)
+        public ValueState ReleaseComponent(ComponentID component)
         {
-            var ret = Simulation.ReleaseComponent(componentId);
-            Print($"ReleaseComponent(Component: {componentId}) -> {ret}");
+            var ret = Simulation.ReleaseComponent(component);
+            Print($"ReleaseComponent(Component: {component}) -> {ret}");
             return ret;
         }
     }

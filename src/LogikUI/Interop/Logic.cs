@@ -18,27 +18,27 @@ namespace LogikUI.Interop
 
         public void Exit() => RustLogic.Exit(data);
 
-        public bool AddSubnet(int subnetId) => RustLogic.AddSubnet(data, subnetId);
+        public bool AddSubnet(SubnetID subnet) => RustLogic.AddSubnet(data, (int)subnet);
 
-        public bool RemoveSubnet(int subnetId) => RustLogic.RemoveSubnet(data, subnetId);
+        public bool RemoveSubnet(SubnetID subnet) => RustLogic.RemoveSubnet(data, (int)subnet);
 
-        public int AddComponent(ComponentType componentType) => RustLogic.AddComponent(data, componentType);
+        public ComponentID AddComponent(ComponentType componentType) => (ComponentID)RustLogic.AddComponent(data, componentType);
 
-        public bool RemoveComponent(int componentId) => RustLogic.RemoveComponent(data, componentId);
+        public bool RemoveComponent(ComponentID component) => RustLogic.RemoveComponent(data, (int)component);
 
-        public bool Link(int componentId, int port, int subnetId) => RustLogic.Link(data, componentId, port, subnetId);
+        public bool Link(ComponentID component, int port, SubnetID subnet) => RustLogic.Link(data, (int)component, port, (int)subnet);
 
-        public bool Unlink(int componentId, int port, int subnetId) => RustLogic.Unlink(data, componentId, port, subnetId);
+        public bool Unlink(ComponentID component, int port, SubnetID subnet) => RustLogic.Unlink(data, (int)component, port, (int)subnet);
 
         public void Tick() => RustLogic.Tick(data);
 
-        public ValueState SubnetState(int subnet) => RustLogic.SubnetState(data, subnet);
+        public ValueState SubnetState(SubnetID subnet) => RustLogic.SubnetState(data, (int)subnet);
 
-        public ValueState PortState(int component, int port) => RustLogic.PortState(data, component, port);
+        public ValueState PortState(ComponentID component, int port) => RustLogic.PortState(data, (int)component, port);
 
-        public ValueState PressComponent(int componentId) => RustLogic.PressComponent(data, componentId);
+        public ValueState PressComponent(ComponentID component) => RustLogic.PressComponent(data, (int)component);
 
-        public ValueState ReleaseComponent(int componentId) => RustLogic.ReleaseComponent(data, componentId);
+        public ValueState ReleaseComponent(ComponentID component) => RustLogic.ReleaseComponent(data, (int)component);
     }
 
     static class RustLogic

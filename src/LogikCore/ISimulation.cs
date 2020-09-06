@@ -10,26 +10,26 @@ namespace LogikCore
 
         public void Exit();
 
-        public bool AddSubnet(int subnetId);
+        public bool AddSubnet(SubnetID subnet);
 
-        public bool RemoveSubnet(int subnetId);
+        public bool RemoveSubnet(SubnetID subnet);
 
-        public int AddComponent(ComponentType componentType);
+        public ComponentID AddComponent(ComponentType componentType);
 
-        public bool RemoveComponent(int componentId);
+        public bool RemoveComponent(ComponentID component);
 
-        public bool Link(int componentId, int port, int subnetId);
+        public bool Link(ComponentID component, int port, SubnetID subnet);
 
-        public bool Unlink(int componentId, int port, int subnetId);
+        public bool Unlink(ComponentID component, int port, SubnetID subnet);
 
         public void Tick();
 
-        public ValueState SubnetState(int subnet);
+        public ValueState SubnetState(SubnetID subnet);
 
-        public ValueState PortState(int component, int port);
+        public ValueState PortState(ComponentID component, int port);
 
-        public ValueState PressComponent(int componentId);
+        public ValueState PressComponent(ComponentID component);
 
-        public ValueState ReleaseComponent(int componentId);
+        public ValueState ReleaseComponent(ComponentID component);
     }
 }

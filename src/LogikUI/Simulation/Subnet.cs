@@ -12,13 +12,13 @@ namespace LogikUI.Simulation
 {
     public class Subnet
     {
-        public int ID;
+        public SubnetID ID;
         public List<Wire> Wires = new List<Wire>();
         public List<(InstanceData Instance, int Port)> ComponentPorts = new List<(InstanceData, int)>();
 
         public Subnet(int id)
         {
-            ID = id;
+            ID = (SubnetID)id;
         }
 
         public void AddWire(Wire wire)
@@ -81,7 +81,7 @@ namespace LogikUI.Simulation
                 AddComponent(instance, port);
             }
             
-            toMerge.ID = 0;
+            toMerge.ID = SubnetID.Invalid;
         }
 
         public override string ToString()
