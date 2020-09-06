@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Text;
 
-namespace LogikUI.Simulation
+namespace LogikSimulation
 {
     struct SetEvent : IEquatable<SetEvent>, IComparable<SetEvent>
     {

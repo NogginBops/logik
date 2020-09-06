@@ -176,10 +176,10 @@ namespace LogikUI
         }
 
         // This gets called from Logik::Program.Main
-        public static void InitUI(IComponentGraphics[] comps)
+        public static void InitUI(ISimulation sim, IComponentGraphics[] comps)
         {
             Console.ResetColor();
-            Simulation = new ExternSimulation();
+            Simulation = sim;
             if (LogSimulationCommunication) Simulation = new LoggingSimulation(Simulation);
             Simulation.Init();
             

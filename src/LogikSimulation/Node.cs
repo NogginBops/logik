@@ -1,10 +1,9 @@
 ﻿using LogikCore;
-using LogikUI.Util;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace LogikUI.Simulation
+namespace LogikSimulation
 {
     [Flags]
     enum NodeFlags

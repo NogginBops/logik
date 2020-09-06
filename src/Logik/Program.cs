@@ -1,10 +1,12 @@
 ﻿using Logik.Gates;
 using LogikCore;
+using LogikSimulation;
 using LogikUI;
 using LogikUI.Simulation;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 
 namespace Logik
 {
@@ -22,7 +24,10 @@ namespace Logik
                 new XorGate(),
             };
 
-            LogikUI.LogikUI.InitUI(comps);
+            // FIXME: Don't use Select casting!
+            ISimulation simulation = new CSharpSimulation(new ILogicComponent[] { new AndGate(), new Constant(), });
+
+            LogikUI.LogikUI.InitUI(simulation, comps);
         }
     }
 }

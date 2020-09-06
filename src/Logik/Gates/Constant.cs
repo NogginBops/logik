@@ -6,10 +6,11 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using LogikUI;
+using LogikSimulation;
 
 namespace Logik.Gates
 {
-    class Constant : IComponentGraphics
+    class Constant : IComponentGraphics, ILogicComponent
     {
         public string Name => "Constant";
         public ComponentType Type => ComponentType.Constant;
@@ -55,6 +56,11 @@ namespace Logik.Gates
                     IComponentGraphics.DrawRoundPort(cr, data, points, i);
                 }
             }
+        }
+
+        public void Evaluate(Span<Value> State)
+        {
+            State[0] = Value.One;
         }
     }
 }

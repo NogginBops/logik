@@ -85,7 +85,7 @@ namespace Logik.Gates
 
         public void Evaluate(Span<Value> State)
         {
-            throw new NotImplementedException();
+            State[2] = Value.And(State[0], State[1]);
         }
     }
 }

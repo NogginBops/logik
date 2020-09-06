@@ -3,24 +3,28 @@ using System.Collections.Generic;
 using System.Text;
 using LogikCore;
 
-namespace LogikUI.Simulation
+namespace LogikSimulation
 {
-    class Simulation : ISimulation
+    public class CSharpSimulation : ISimulation
     {
+        public Engine Engine;
 
+        public CSharpSimulation(ILogicComponent[] logicImpls)
+        {
+            Engine = new Engine(logicImpls);
+        }
 
+        public void Init() => Engine.Init();
 
-        public void Init() => throw new NotImplementedException();
+        public void Exit() => Engine.Exit();
 
-        public void Exit() => throw new NotImplementedException();
+        public bool AddSubnet(int subnetId) => Engine.AddSubnet(subnetId);
 
-        public bool AddSubnet(int subnetId) => throw new NotImplementedException();
+        public bool RemoveSubnet(int subnetId) => Engine.RemoveSubnet(subnetId);
 
-        public bool RemoveSubnet(int subnetId) => throw new NotImplementedException();
+        public int AddComponent(ComponentType componentType) => Engine.AddComponent(componentType);
 
-        public int AddComponent(ComponentType componentType) => throw new NotImplementedException();
-
-        public bool RemoveComponent(int componentId) => throw new NotImplementedException();
+        public bool RemoveComponent(int componentId) => Engine.RemoveComponent(componentId);
 
         public bool Link(int componentId, int port, int subnetId) => throw new NotImplementedException();
 
@@ -28,9 +32,9 @@ namespace LogikUI.Simulation
 
         public void Tick() => throw new NotImplementedException();
 
-        public ValueState SubnetState(int subnet) => throw new NotImplementedException();
+        public ValueState SubnetState(int subnet) => Engine.SubnetState(subnet);
 
-        public ValueState PortState(int component, int port) => throw new NotImplementedException();
+        public ValueState PortState(int component, int port) => Engine.PortState(component, port);
 
         public ValueState PressComponent(int componentId) => throw new NotImplementedException();
 
